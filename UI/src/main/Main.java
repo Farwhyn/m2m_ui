@@ -3,6 +3,8 @@ package main;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -20,12 +22,12 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
-
+import com.fazecast.jSerialComm.SerialPort;
 
 
 
 public class Main extends Application{
-
+    SerialPort chosenPort;
 	
 	Scene loginScreen, landing;
 	public static void main(String[] args){
@@ -34,6 +36,7 @@ public class Main extends Application{
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+	    
 		double columnWidth = 200;
 		
 		String user = "m2m";
@@ -84,6 +87,15 @@ public class Main extends Application{
 			if(passwordField.getText().equals(pw) && userNameField.getText().equals(user))
 			{
 				//message.setText(blank);
+			    
+			    try{
+			    SerialPort[] portNames = SerialPort.getCommPorts();
+			    chosenPort = SerialPort.getCommPort(portNames[0].toString());
+                chosenPort.setComPortTimeouts(SerialPort.TIMEOUT_SCANNER, 0, 0);
+			    } catch (Exception b) {
+			        
+			        JOptionPane.showMessageDialog(null, "Cannot connect to device");
+			    }
 				primaryStage.setScene(landing);
 			}
 			else{
