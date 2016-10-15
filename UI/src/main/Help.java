@@ -15,8 +15,8 @@ public class Help {
 		
 		helpWindow.initModality(Modality.APPLICATION_MODAL);
 		helpWindow.setTitle(title);
-		helpWindow.setMinWidth(250);
-		helpWindow.setMinHeight(350);
+		helpWindow.setMinWidth(450);
+		helpWindow.setMinHeight(720);
 		
 		Label helpText = new Label();
 		helpText.setText(message);

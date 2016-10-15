@@ -2,7 +2,7 @@
 #welcome-text, #menu-text{
 	-fx-font-size: 32px;
 	-fx-font-family: "Segoe UI Semibold";
-	-fx-fill: white;
+	-fx-fill: black;
 }
 
 .root {
@@ -12,7 +12,7 @@
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-opacity: 0.6;
 }
 
