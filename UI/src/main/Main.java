@@ -1,5 +1,7 @@
 package main;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +12,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
+import sqlite.sqlitetest;
 import javafx.scene.Scene;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -251,6 +254,23 @@ public class Main extends Application{
 	}
 	private ObservableList getData(){
 		List list = new ArrayList();
+		SQLiteSync test = new SQLiteSync();
+        ResultSet rs;
+        
+        try {
+            rs = test.displayUsers();
+            while(rs.next()) {
+                //System.out.println(rs.getString("fname") + " " + rs.getString("lname"));
+                list.add(new Patient(rs.getString("lname"), rs.getString("fname"), rs.getString("pdate")));
+            }
+            
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        /*
 		list.add(new Patient("Yan", "Andrew","20160830"));
 		list.add(new Patient("BEST","UBC","20170930"));
 		list.add(new Patient("BEST","UBC","20170930"));
@@ -284,6 +304,7 @@ public class Main extends Application{
 		list.add(new Patient("BEST","UBC","20170930"));
 		list.add(new Patient("BEST","UBC","20170930"));
 		list.add(new Patient("BEST","UBC","20170930"));
+		*/
 		ObservableList data = FXCollections.observableList(list);
 		return data;
 

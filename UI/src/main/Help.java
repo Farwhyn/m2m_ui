@@ -11,8 +11,6 @@ public class Help {
 	public static void display(String title, String message){
 		Stage helpWindow = new Stage();
 		
-		
-		
 		helpWindow.initModality(Modality.APPLICATION_MODAL);
 		helpWindow.setTitle(title);
 		helpWindow.setMinWidth(450);
