@@ -113,12 +113,24 @@ public class Main extends Application{
 		
 		//Main Menu
 		BorderPane layout = new BorderPane();
-		VBox menu = new VBox(10);
-		GridPane gamemode = new GridPane();
+		HBox menu = new HBox(10);
+		AnchorPane display = new AnchorPane();
+		HBox gamemode = new HBox(10);
+		GridPane pData = new GridPane();
 		SQLiteSync db = new SQLiteSync();
-		gamemode.setAlignment(Pos.CENTER);
 		
-		Label landingPage  = new Label ("Welcome to Music to Movement");
+		display.setTopAnchor(pData, 20.0);
+		display.setRightAnchor(gamemode, 5.0);
+		display.setBottomAnchor(gamemode, 8.0);
+		//gamemode.setAlignment(Pos.CENTER);
+		
+		menu.setAlignment(Pos.CENTER_RIGHT);
+		Label patientData  = new Label ("Patient Data:");
+		Label patientFirst = new Label ("First Name:");
+		Label patientLast = new Label ("Last Name:");
+		Label firstData = new Label ("No Data Available");
+		Label lastData = new Label ("No Data Available");
+		Label dateData = new Label ("No Data Available");
 		
 		TableView<Patient> pTable = new TableView<Patient>();
 		ObservableList<Patient> data;
@@ -150,50 +162,65 @@ public class Main extends Application{
 
 		
 		menu.setPadding(new Insets(10,10,10,10));
+		pData.setPadding(new Insets(10,10,10,10));
 		
-		
-		layout.setLeft(menu);
-		layout.setCenter(landingPage);
+		layout.setTop(menu);
+		layout.setCenter(pTable);
+		layout.setRight(display);
+		//layout.setCenter(landingPage);
 
 		//All Landing Buttons
-		Button home = new Button("Home");
-		Button newSession = new Button("New Session");
-		Button viewPatients = new Button("Patient List");
+		//Button home = new Button("Home");
+		//Button newSession = new Button("New Session");
+		//Button viewPatients = new Button("Patient List");
+		
+		Button newPatient = new Button("New...");
+		Button editPatient = new Button("Edit...");
+		Button deletePatient = new Button ("Delete");
+		Button helpAfter = new Button("?");
 		Button logout = new Button("Log Out");
-		Button helpAfter = new Button("Help");
-		Button newPatient = new Button("Add Patient");
-		
-		home.setMaxSize(150, Double.MAX_VALUE);
-		newSession.setMaxSize(150, Double.MAX_VALUE);
-		viewPatients.setMaxSize(150, Double.MAX_VALUE);
-		helpAfter.setMaxSize(150, Double.MAX_VALUE);
-		newPatient.setMaxSize(150, Double.MAX_VALUE);
-		
-		logout.setMaxSize(150, Double.MAX_VALUE);
 		
 		Button freePlay = new Button("Free Play");
 		Button gamemode1 = new Button("Game Mode 1");
 		Button gamemode2 = new Button("Game Mode 2");
+		//home.setMaxSize(150, Double.MAX_VALUE);
+		//newSession.setMaxSize(150, Double.MAX_VALUE);
+		//viewPatients.setMaxSize(150, Double.MAX_VALUE);
+		helpAfter.setMaxSize(150, Double.MAX_VALUE);
+		//newPatient.setMaxSize(150, Double.MAX_VALUE);
+		
+		logout.setMaxSize(150, Double.MAX_VALUE);
+		
+		
 		
 		freePlay.setMaxSize(150, Double.MAX_VALUE);
 		gamemode1.setMaxSize(150, Double.MAX_VALUE);
 		gamemode2.setMaxSize(150, Double.MAX_VALUE);
 		
-		gamemode.add(freePlay, 0, 0);
-		gamemode.add(gamemode1, 0, 1);
-		gamemode.add(gamemode2, 0, 2);
+		pData.add(patientData, 0, 0);
+		pData.add(patientFirst, 0, 1);
+		pData.add(patientLast, 0, 2);
+		pData.add(firstData, 1, 1);
+		pData.add(lastData, 1, 2);
+		pData.add(dateData, 1, 3);
+		//pData.add(freePlay, 0, 3);
+		//pData.add(gamemode1, 1,3);
+		//pData.add(gamemode2, 2, 3);
+		//pData.add(newPatient, 0, 0);
+		//pData.add(editPatient, 1,0);
+		//pData.add(deletePatient, 2, 0);
 		
-		home.setOnAction(e -> {
+		/*home.setOnAction(e -> {
 			layout.setCenter(landingPage);
 		});
 		
 		newSession.setOnAction(e -> {
-			layout.setCenter(gamemode);
+			//layout.setCenter(gamemode);
 		});
 		
 		viewPatients.setOnAction(e -> {
 			layout.setCenter(pTable);
-		});
+		});*/
 		
 		helpAfter.setOnAction(e -> Help.display("Music to Movement Help", "This is the help window."));
 		
@@ -201,13 +228,18 @@ public class Main extends Application{
 			primaryStage.setScene(loginScreen);
 		});
 		
+		newPatient.setOnAction(e -> {
+			AddPatient.display(this, db, pTable);
+			//data = getData(db);
+			//pTable.setItems(getData(db));		
+		});
 		
-		menu.getChildren().addAll(home,newSession, viewPatients, helpAfter, logout);
-
 		
-		landing = new Scene(layout, 1000 ,620);
+		menu.getChildren().addAll(freePlay, gamemode1, gamemode2, helpAfter, logout);
+		gamemode.getChildren().addAll(newPatient, editPatient, deletePatient);
+		display.getChildren().addAll(pData, gamemode);
 		
-		
+		landing = new Scene(layout, 1000 ,620);	
 		loginScreen = new Scene(grid, 1000, 620);
 		
 		//loginScreen.getStylesheets().add(Main.class.getResource("theme.css").toExternalForm());
@@ -255,7 +287,7 @@ public class Main extends Application{
 			lastName.set(vDate);
 		}
 	}
-	private ObservableList<Patient> getData(SQLiteSync db){
+	ObservableList<Patient> getData(SQLiteSync db){
 		List<Patient> list = new ArrayList<Patient>();
 		
         ResultSet rs;
