@@ -18,7 +18,9 @@ public class SQLiteSync {
         }
         
         Statement state = con.createStatement();
-        ResultSet res = state.executeQuery("SELECT fname, lname, pdate FROM patient");
+        ResultSet res = state.executeQuery("SELECT fname, lname, sname FROM user");
+        
+            
         return res;
     }
 
@@ -36,36 +38,38 @@ public class SQLiteSync {
         }
         
         Statement state = con.createStatement();
-        ResultSet res = state.executeQuery("SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'patient'");
+        ResultSet res = state.executeQuery("SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'user'");
         if(!res.next()) {
             System.out.println("Initializing the patient table");
             
             //build the table
             Statement state2 = con.createStatement();
-            state2.execute("CREATE TABLE patient(id integer," + "fName varchar(60)," + "lName varchar(60)," + "pdate varchar(60),"
+            state2.execute("CREATE TABLE user(id integer," + "fName varchar(60)," + "lName varchar(60)," + "sName varchar(60),"
                     + "primary key(id));");
             
             //insert some sample data
-            PreparedStatement prep = con.prepareStatement("INSERT INTO patient values(?, ?, ?)");
+            PreparedStatement prep = con.prepareStatement("INSERT INTO user values(?, ?, ?, ?)");
             prep.setString(2, "James");
             prep.setString(3, "Zhou");
             prep.setString(4, "August 11, 2016");
             prep.execute();
             
             
-            PreparedStatement prep2 = con.prepareStatement("INSERT INTO patient values(?, ?, ?)");
+            PreparedStatement prep2 = con.prepareStatement("INSERT INTO user values(?, ?, ?, ?)");
             prep2.setString(2, "Andrew");
             prep2.setString(3, "Yan");
             prep2.setString(4, "September 8, 2016");
             prep2.execute();
             
-            PreparedStatement prep3 = con.prepareStatement("INSERT INTO patient values(?, ?, ?)");
+            PreparedStatement prep3 = con.prepareStatement("INSERT INTO user values(?, ?, ?, ?)");
             prep3.setString(2, "May");
             prep3.setString(3, "Liang");
             prep3.setString(4, "October 6, 2016");
             prep3.execute();
             
         }
+        
+        
         
     }
     
@@ -74,7 +78,7 @@ public class SQLiteSync {
             getConnection();
         }
         
-        PreparedStatement prep = con.prepareStatement("INSERT INTO user values(?, ?, ?)");
+        PreparedStatement prep = con.prepareStatement("INSERT INTO user values(?, ?, ?, ?)");
         prep.setString(2, firstname);
         prep.setString(3, lastname);
         prep.setString(4, date);

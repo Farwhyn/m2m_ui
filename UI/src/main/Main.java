@@ -2,6 +2,7 @@ package main;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
-import sqlite.sqlitetest;
+import main.Main.Patient;
+import  main.SQLiteSync;
 import javafx.scene.Scene;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -39,7 +41,6 @@ public class Main extends Application{
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-	    
 		double columnWidth = 200;
 		
 		String user = "m2m";
@@ -114,17 +115,17 @@ public class Main extends Application{
 		BorderPane layout = new BorderPane();
 		VBox menu = new VBox(10);
 		GridPane gamemode = new GridPane();
-		
+		SQLiteSync db = new SQLiteSync();
 		gamemode.setAlignment(Pos.CENTER);
 		
 		Label landingPage  = new Label ("Welcome to Music to Movement");
 		
-		TableView pTable = new TableView();
-		ObservableList data;
+		TableView<Patient> pTable = new TableView<Patient>();
+		ObservableList<Patient> data;
 		
 		//Patient Table
 		//pTable.setEditable(true);
-		TableColumn lastName = new TableColumn("Last Name");
+		TableColumn<Patient, String> lastName = new TableColumn<Patient, String>("Last Name");
 		TableColumn firstName = new TableColumn("First Name");
 		TableColumn date = new TableColumn("Date of Last Visit");
 		
@@ -144,7 +145,7 @@ public class Main extends Application{
 		
 		pTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		
-		data = getData();
+		data = getData(db);
 		pTable.setItems(data);
 
 		
@@ -160,11 +161,13 @@ public class Main extends Application{
 		Button viewPatients = new Button("Patient List");
 		Button logout = new Button("Log Out");
 		Button helpAfter = new Button("Help");
+		Button newPatient = new Button("Add Patient");
 		
 		home.setMaxSize(150, Double.MAX_VALUE);
 		newSession.setMaxSize(150, Double.MAX_VALUE);
 		viewPatients.setMaxSize(150, Double.MAX_VALUE);
 		helpAfter.setMaxSize(150, Double.MAX_VALUE);
+		newPatient.setMaxSize(150, Double.MAX_VALUE);
 		
 		logout.setMaxSize(150, Double.MAX_VALUE);
 		
@@ -252,23 +255,25 @@ public class Main extends Application{
 			lastName.set(vDate);
 		}
 	}
-	private ObservableList getData(){
-		List list = new ArrayList();
-		SQLiteSync test = new SQLiteSync();
+	private ObservableList<Patient> getData(SQLiteSync db){
+		List<Patient> list = new ArrayList<Patient>();
+		
         ResultSet rs;
         
+            
         try {
-            rs = test.displayUsers();
+            rs = db.displayUsers();
             while(rs.next()) {
                 //System.out.println(rs.getString("fname") + " " + rs.getString("lname"));
-                list.add(new Patient(rs.getString("lname"), rs.getString("fname"), rs.getString("pdate")));
+                list.add(new Patient(rs.getString("lname"), rs.getString("fname"), rs.getString("sname")));
             }
-            
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+           JOptionPane.showMessageDialog(null, "oops");
         } catch (SQLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Woops");
         }
+        
+       
         
         /*
 		list.add(new Patient("Yan", "Andrew","20160830"));
@@ -305,7 +310,7 @@ public class Main extends Application{
 		list.add(new Patient("BEST","UBC","20170930"));
 		list.add(new Patient("BEST","UBC","20170930"));
 		*/
-		ObservableList data = FXCollections.observableList(list);
+		ObservableList<Patient> data = FXCollections.observableList(list);
 		return data;
 
 	}
