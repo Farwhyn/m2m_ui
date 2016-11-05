@@ -20,6 +20,7 @@ public class Help {
 		helpText.setText(message);
 		
 		Button close = new Button("Close");
+		close.setDefaultButton(true);
 		close.setOnAction(e -> helpWindow.close());
 		
 		VBox layout = new VBox(10);

@@ -22,6 +22,7 @@ public class LoginFail {
 		failText.setText(message);
 		
 		Button close = new Button("Close");
+		close.setDefaultButton(true);
 		close.setOnAction(e -> failedLogin.close());
 		
 		VBox layout = new VBox(10);
