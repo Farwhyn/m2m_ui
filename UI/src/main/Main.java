@@ -176,7 +176,6 @@ public class Main extends Application{
 		    row.setOnMouseClicked(event -> {
 		        if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
 		            Patient rowData = row.getItem();
-		            System.out.println(rowData.getFirstName());
 		            firstData.setText(rowData.getFirstName());
 		            lastData.setText(rowData.getLastName());
 		            dateData.setText(rowData.getVisitDate());
@@ -192,18 +191,12 @@ public class Main extends Application{
 		pData.setPadding(new Insets(10,10,10,10));
 		pData.getColumnConstraints().add(new ColumnConstraints(100));
 		pData.getColumnConstraints().add(new ColumnConstraints(100));
-		//pData.minWidth(400);
 		
 		
 		layout.setTop(menu);
 		layout.setCenter(pTable);
 		layout.setRight(display);
-		//layout.setCenter(landingPage);
-
-		//All Landing Buttons
-		//Button home = new Button("Home");
-		//Button newSession = new Button("New Session");
-		//Button viewPatients = new Button("Patient List");
+		
 		
 		Button newPatient = new Button("New...");
 		Button editPatient = new Button("Edit...");
@@ -214,11 +207,9 @@ public class Main extends Application{
 		Button freePlay = new Button("Free Play");
 		Button gamemode1 = new Button("Game Mode 1");
 		Button gamemode2 = new Button("Game Mode 2");
-		//home.setMaxSize(150, Double.MAX_VALUE);
-		//newSession.setMaxSize(150, Double.MAX_VALUE);
-		//viewPatients.setMaxSize(150, Double.MAX_VALUE);
+	
 		helpAfter.setMaxSize(150, Double.MAX_VALUE);
-		//newPatient.setMaxSize(150, Double.MAX_VALUE);
+		
 		
 		logout.setMaxSize(150, Double.MAX_VALUE);
 		
@@ -247,6 +238,25 @@ public class Main extends Application{
 			AddPatient.display(this, db, pTable);	
 		});
 		
+		deletePatient.setOnAction(e -> {
+			try {
+				db.deletePatient(firstData.getText(), lastData.getText());
+				
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			firstData.setText("");
+			lastData.setText("");
+			dateData.setText("");
+			
+			pTable.setItems(getData(db));
+			
+			
+		});
 		
 		menu.getChildren().addAll(freePlay, gamemode1, gamemode2, helpAfter, logout);
 		gamemode.getChildren().addAll(newPatient, editPatient, deletePatient);
@@ -269,9 +279,6 @@ public class Main extends Application{
 		
 	}
 	
-	public void printInfo (String fNameDisplay, String lNameDisplay, String dateDisplay){
-		
-	}
 
 	public class Patient{
 		private SimpleStringProperty lastName;
