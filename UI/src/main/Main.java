@@ -98,14 +98,7 @@ public class Main extends Application{
 			{
 				//message.setText(blank);
 			    
-			    try{
-			    SerialPort[] portNames = SerialPort.getCommPorts();
-			    chosenPort = SerialPort.getCommPort(portNames[0].toString());
-                chosenPort.setComPortTimeouts(SerialPort.TIMEOUT_SCANNER, 0, 0);
-			    } catch (Exception b) {
-			        
-			        JOptionPane.showMessageDialog(null, "Cannot connect to device");
-			    }
+			    
 				primaryStage.setScene(landing);
 			}
 			else{
@@ -276,12 +269,7 @@ public class Main extends Application{
 	}
 	
 	
-	private void printf(double width) {
-		// TODO Auto-generated method stub
-		
-	}
 	
-
 	
 	ObservableList<Patient> getData(SQLiteSync db){
 		List<Patient> list = new ArrayList<Patient>();
