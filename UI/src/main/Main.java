@@ -7,14 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
-
+import main.Patient;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
-import main.Main.Patient;
 import  main.SQLiteSync;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -227,6 +226,9 @@ public class Main extends Application{
 		pData.add(lastData, 1, 2);
 		pData.add(dateData, 1, 3);
 		
+		freePlay.setOnAction(e -> {
+            Graph.create();
+        });
 		
 		helpAfter.setOnAction(e -> Help.display("Music to Movement Help", "This is the help window."));
 		
@@ -280,38 +282,7 @@ public class Main extends Application{
 	}
 	
 
-	public class Patient{
-		private SimpleStringProperty lastName;
-		private SimpleStringProperty firstName;
-		private SimpleStringProperty visitDate;
-		
-		public Patient(String lName, String fName, String vDate ){
-			this.lastName = new SimpleStringProperty(lName);
-			this.firstName = new SimpleStringProperty(fName);
-			this.visitDate = new SimpleStringProperty(vDate);
-		}
-		
-		public String getLastName(){
-			return lastName.get();
-		}
-		public void setLastName(String lName){	
-			lastName.set(lName);
-		}
-		
-		public String getFirstName(){
-			return firstName.get();
-		}
-		public void setFirstName(String fName){	
-			lastName.set(fName);
-		}
-		
-		public String getVisitDate(){
-			return visitDate.get();
-		}
-		public void setVisitDate(String vDate){	
-			lastName.set(vDate);
-		}
-	}
+	
 	ObservableList<Patient> getData(SQLiteSync db){
 		List<Patient> list = new ArrayList<Patient>();
 		
