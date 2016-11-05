@@ -67,6 +67,8 @@ if (SqueezeReading <SqueezeThreshold){
     analogWrite(3,0);
     analogWrite(4,255);
     analogWrite(5,0);
+
+    delay(1000);
   }
   else{
     analogWrite(2,0);
