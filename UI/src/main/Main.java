@@ -5,7 +5,9 @@ import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import javax.script.Bindings;
 import javax.swing.JOptionPane;
 
 import javafx.application.Application;
@@ -23,6 +25,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -30,14 +33,11 @@ import javafx.scene.text.*;
 import com.fazecast.jSerialComm.SerialPort;
 
 
-
 public class Main extends Application{
-    SerialPort chosenPort;
+    SerialPort chosenPort;       
+	static Scene loginScreen;
+	static Scene landing;
 	
-	Scene loginScreen, landing;
-	public static void main(String[] args){
-		launch(args);
-	}
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -113,18 +113,22 @@ public class Main extends Application{
 		
 		//Main Menu
 		BorderPane layout = new BorderPane();
-		HBox menu = new HBox(10);
+		//HBox menu = new HBox(10);
 		AnchorPane display = new AnchorPane();
 		HBox gamemode = new HBox(10);
+		HBox editFunctions = new HBox(10);
 		GridPane pData = new GridPane();
 		SQLiteSync db = new SQLiteSync();
 		
-		display.setTopAnchor(pData, 20.0);
-		display.setRightAnchor(gamemode, 5.0);
-		display.setBottomAnchor(gamemode, 8.0);
+		AnchorPane.setTopAnchor(pData, 20.0);
+		AnchorPane.setRightAnchor(gamemode, 5.0);
+		AnchorPane.setBottomAnchor(gamemode, null);
+		AnchorPane.setRightAnchor(editFunctions, 5.0);
+		AnchorPane.setBottomAnchor(editFunctions, 8.0);
 		//gamemode.setAlignment(Pos.CENTER);
 		
-		menu.setAlignment(Pos.CENTER_RIGHT);
+
+		
 		Label patientData  = new Label ("Patient Data:");
 		Label patientFirst = new Label ("First Name:");
 		Label patientLast = new Label ("Last Name:");
@@ -135,15 +139,38 @@ public class Main extends Application{
 		TableView<Patient> pTable = new TableView<Patient>();
 		ObservableList<Patient> data;
 		
+	     final Pane leftSpacer = new Pane();
+	        HBox.setHgrow(
+	                leftSpacer,
+	                Priority.SOMETIMES
+	        );
+
+			Button helpAfter = new Button("?");
+			Button logout = new Button("Log Out");
+			
+
+			Label welcomeMessage = new Label("Welcome to Music 2 Movement! Select a patient, or  ");
+			Button newPatient = new Button("Add New Patient...");
+			
+	        final HBox menu = new HBox(
+	                welcomeMessage,
+	                newPatient,
+	                leftSpacer,
+	                helpAfter,
+	                logout
+	        );
+			menu.setAlignment(Pos.CENTER);
+			display.getChildren().addAll(menu);
+
 		//Patient Table
 		//pTable.setEditable(true);
 		TableColumn<Patient, String> lastName = new TableColumn<Patient, String>("Last Name");
-		TableColumn firstName = new TableColumn("First Name");
-		TableColumn date = new TableColumn("Date of Last Visit");
+		TableColumn<Patient, String> firstName = new TableColumn<Patient, String>("First Name");
+		TableColumn<Patient, String> date = new TableColumn<Patient, String>("Date of Last Visit");
 		
 		
 		pTable.getColumns().setAll(lastName,firstName,date);
-		pTable.setPrefWidth(10);
+		pTable.setPrefWidth(20);
 		pTable.setPrefHeight(620);
 		
 		lastName.setMinWidth(columnWidth);
@@ -161,8 +188,9 @@ public class Main extends Application{
 		pTable.setItems(data);
 
 		
-		menu.setPadding(new Insets(10,10,10,10));
-		pData.setPadding(new Insets(10,10,10,10));
+		menu.setPadding(new Insets(10,10,20,10));
+		pData.setPadding(new Insets(10,10,10,20));
+		gamemode.setPadding(new Insets(0,0,0,20));
 		
 		layout.setTop(menu);
 		layout.setCenter(pTable);
@@ -174,12 +202,10 @@ public class Main extends Application{
 		//Button newSession = new Button("New Session");
 		//Button viewPatients = new Button("Patient List");
 		
-		Button newPatient = new Button("New...");
-		Button editPatient = new Button("Edit...");
-		Button deletePatient = new Button ("Delete");
-		Button helpAfter = new Button("?");
-		Button logout = new Button("Log Out");
-		
+
+		Button editPatient = new Button("Edit Patient...");
+		Button deletePatient = new Button ("Delete Patient");
+
 		Button freePlay = new Button("Free Play");
 		Button gamemode1 = new Button("Game Mode 1");
 		Button gamemode2 = new Button("Game Mode 2");
@@ -234,10 +260,15 @@ public class Main extends Application{
 			//pTable.setItems(getData(db));		
 		});
 		
+		gamemode.getChildren().addAll(freePlay, gamemode1, gamemode2);
+		editFunctions.getChildren().addAll(editPatient, deletePatient);
+		if ((pTable.getSelectionModel().isEmpty())) {
+		display.getChildren().addAll(pData, gamemode, editFunctions);
+		}
 		
-		menu.getChildren().addAll(freePlay, gamemode1, gamemode2, helpAfter, logout);
-		gamemode.getChildren().addAll(newPatient, editPatient, deletePatient);
-		display.getChildren().addAll(pData, gamemode);
+	     pTable.requestFocus();
+	     pTable.getSelectionModel().select(0);
+	     pTable.getFocusModel().focus(0);
 		
 		landing = new Scene(layout, 1000 ,620);	
 		loginScreen = new Scene(grid, 1000, 620);
@@ -306,42 +337,7 @@ public class Main extends Application{
         }
         
        
-        
-        /*
-		list.add(new Patient("Yan", "Andrew","20160830"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		list.add(new Patient("BEST","UBC","20170930"));
-		*/
+
 		ObservableList<Patient> data = FXCollections.observableList(list);
 		return data;
 
