@@ -1,0 +1,1 @@
+If using SD shield with big SD card, go to MusicPlayer.cpp and change SD card pin to 4

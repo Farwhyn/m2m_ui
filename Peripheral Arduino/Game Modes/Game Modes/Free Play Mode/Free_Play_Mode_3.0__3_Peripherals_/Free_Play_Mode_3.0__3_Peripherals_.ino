@@ -1,4 +1,4 @@
-// DONT CONNECT ANYTHING TO PIN 4
+ic// DONT CONNECT ANYTHING TO PIN 4
 
 #include "Adafruit_NeoPixel.h"
 #include <SD.h>                      // need to include the SD library
