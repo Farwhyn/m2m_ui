@@ -9,11 +9,13 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import main.Patient;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import  main.SQLiteSync;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -64,7 +66,7 @@ public class Main extends Application{
 		grid.setPadding(new Insets(10,10,10,10));
 		
 		primaryStage.setTitle("Music to Movement");
-		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("M2M.png")));
+		primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("light_logo.png")));
 		
 		Text welcomeText = new Text("Welcome");
 		welcomeText.setId("welcome-text");
@@ -112,8 +114,14 @@ public class Main extends Application{
 			passwordField.setText(blank);
 
 		});
-		quit.setOnAction(e -> primaryStage.close());
-		
+		quit.setOnAction(e -> {
+			primaryStage.close();
+			
+		});
+		primaryStage.setOnCloseRequest(e-> {
+			Platform.exit();
+			System.exit(0);
+		});
 		//Main Menu
 		BorderPane layout = new BorderPane();
 		HBox menu = new HBox(10);
@@ -278,8 +286,6 @@ public class Main extends Application{
 		primaryStage.setScene(loginScreen);
 		primaryStage.show();
 	}
-	
-	
 	
 	
 	ObservableList<Patient> getData(SQLiteSync db){
