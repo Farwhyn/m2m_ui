@@ -129,6 +129,7 @@ public class Main extends Application{
 		
 		menu.setAlignment(Pos.CENTER_RIGHT);
 	
+		Label patientID = new Label();
 		Label patientData  = new Label ("Patient Data:");
 		Label patientFirst = new Label ("First Name:\t");
 		Label patientLast = new Label ("Last Name:\t");
@@ -172,6 +173,7 @@ public class Main extends Application{
 		    row.setOnMouseClicked(event -> {
 		        if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
 		            Patient rowData = row.getItem();
+		            patientID.setText( rowData.getID());
 		            firstData.setText(rowData.getFirstName());
 		            lastData.setText(rowData.getLastName());
 		            dateData.setText(rowData.getVisitDate());
@@ -211,9 +213,11 @@ public class Main extends Application{
 		gamemode2.setMaxSize(150, Double.MAX_VALUE);
 		
 		pData.add(patientData, 0, 0);
+
 		pData.add(patientFirst, 0, 1);
 		pData.add(patientLast, 0, 2);
 		pData.add(patientDate, 0, 3);
+
 		pData.add(firstData, 1, 1);
 		pData.add(lastData, 1, 2);
 		pData.add(dateData, 1, 3);
@@ -242,7 +246,7 @@ public class Main extends Application{
 		
 		deletePatient.setOnAction(e -> {
 			try {
-				db.deletePatient(firstData.getText(), lastData.getText());
+				db.deletePatient(patientID.getText());
 				
 			} catch (ClassNotFoundException e1) {
 				// TODO Auto-generated catch block
@@ -251,9 +255,9 @@ public class Main extends Application{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			firstData.setText("");
-			lastData.setText("");
-			dateData.setText("");
+			firstData.setText(blank);
+			lastData.setText(blank);
+			dateData.setText(blank);
 			
 			pTable.setItems(getData(db));
 			
@@ -287,8 +291,9 @@ public class Main extends Application{
         try {
             rs = db.displayUsers();
             while(rs.next()) {
-                //System.out.println(rs.getString("fname") + " " + rs.getString("lname"));
-                list.add(new Patient(rs.getInt("id"), rs.getString("lname"), rs.getString("fname"), rs.getString("sname")));
+                System.out.println(rs.getString("fname") + " " + rs.getString("lname"));
+                System.out.println(rs.getString("id"));
+                list.add(new Patient(rs.getString("id"), rs.getString("lname"), rs.getString("fname"), rs.getString("sname")));
             }
         } catch (ClassNotFoundException e) {
            JOptionPane.showMessageDialog(null, "oops");

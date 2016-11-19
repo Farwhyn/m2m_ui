@@ -85,14 +85,13 @@ public class SQLiteSync {
         prep.execute();
     }
     
-    public void deletePatient(String firstname, String lastname)throws ClassNotFoundException, SQLException {
+    public void deletePatient(String patient_id)throws ClassNotFoundException, SQLException {
     	if(con ==null){
     		getConnection();
     	}
     	
-    	PreparedStatement prep = con.prepareStatement("DELETE FROM user WHERE fname = ? AND lname = ?");
-    	prep.setString(1, firstname);
-    	prep.setString(2, lastname);
+    	PreparedStatement prep = con.prepareStatement("DELETE FROM user WHERE id = ?");
+    	prep.setString(1, patient_id);
     	prep.execute();
     }
 

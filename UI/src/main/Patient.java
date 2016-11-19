@@ -3,20 +3,21 @@ package main;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Patient{
-    private int id;
+    private	String patient_id;
     private SimpleStringProperty lastName;
     private SimpleStringProperty firstName;
     private SimpleStringProperty visitDate;
     
-    public Patient(int id, String lName, String fName, String vDate ){
+    public Patient(String id, String lName, String fName, String vDate ){
+    	this.patient_id = id;
         this.lastName = new SimpleStringProperty(lName);
         this.firstName = new SimpleStringProperty(fName);
         this.visitDate = new SimpleStringProperty(vDate);
-        this.id = id;
+        //this.id = id;
     }
     
-    public int getID(){
-        return id;
+    public String getID(){
+        return this.patient_id;
     }
     public String getLastName(){
         return lastName.get();
@@ -29,13 +30,13 @@ public class Patient{
         return firstName.get();
     }
     public void setFirstName(String fName){ 
-        lastName.set(fName);
+        firstName.set(fName);
     }
     
     public String getVisitDate(){
         return visitDate.get();
     }
     public void setVisitDate(String vDate){ 
-        lastName.set(vDate);
+        visitDate.set(vDate);
     }
 }
