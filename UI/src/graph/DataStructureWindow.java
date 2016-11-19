@@ -37,7 +37,8 @@ public class DataStructureWindow extends JDialog {
 	
 	JTextField locationTextfield;
 	JComboBox<BinaryProcessor> datatypeCombobox;
-	JTextField nameTextfield;
+	JComboBox<String> deviceList;
+	//JTextField nameTextfield;
 	JButton    colorButton;
 	JTextField unitTextfield;
 	JTextField conversionFactorATextfield;
@@ -62,10 +63,10 @@ public class DataStructureWindow extends JDialog {
 		
 		super();
 		
-		setTitle(testMode ? "Data Structure (Not Editable in Test Mode)" : "Data Structure");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setTitle(testMode ? "Add Device" : "Add Device");
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setLayout(new BorderLayout());
-		
+		setLocationRelativeTo(parentWindow);
 		ActionListener pressEnterToAddRow = new ActionListener() {
 			@Override public void actionPerformed(ActionEvent e) {
 				addButton.doClick();
@@ -97,6 +98,7 @@ public class DataStructureWindow extends JDialog {
 		for(BinaryProcessor processor : Controller.getBinaryProcessors())
 			datatypeCombobox.addItem(processor);
 		
+		/*
 		nameTextfield = new JTextField("", 15);
 		nameTextfield.addActionListener(pressEnterToAddRow);
 		nameTextfield.addFocusListener(new FocusListener() {
@@ -109,11 +111,17 @@ public class DataStructureWindow extends JDialog {
 			}
 		});
 		
+		*/
+		deviceList = new JComboBox<String>();
+        for(String device : Controller.getDeviceNames())
+            deviceList.addItem(device);
+        deviceList.setMaximumSize(deviceList.getPreferredSize());
+		
 		colorButton = new JButton("\u25B2");
 		colorButton.setForeground(Controller.getDefaultLineColor());
 		colorButton.addActionListener(new ActionListener() {
 			@Override public void actionPerformed(ActionEvent e) {
-				Color color = JColorChooser.showDialog(DataStructureWindow.this, "Pick a Color for " + nameTextfield.getText(), Color.BLACK);
+				Color color = JColorChooser.showDialog(DataStructureWindow.this, "Pick a Color for " + deviceList.getSelectedItem().toString(), Color.BLACK);
 				if(color != null)
 					colorButton.setForeground(color);
 			}
@@ -187,7 +195,7 @@ public class DataStructureWindow extends JDialog {
 			@Override public void actionPerformed(ActionEvent e) {
 				int location = Integer.parseInt(locationTextfield.getText());
 				BinaryProcessor processor = (BinaryProcessor) datatypeCombobox.getSelectedItem();
-				String name = nameTextfield.getText().trim();
+				String name = deviceList.getSelectedItem().toString().trim();
 				Color color = colorButton.getForeground();
 				String unit = unitTextfield.getText();
 				double conversionFactorA = Double.parseDouble(conversionFactorATextfield.getText());
@@ -201,8 +209,9 @@ public class DataStructureWindow extends JDialog {
 					dataStructureTable.repaint();
 					int newLocation = packetType.equals("ASCII CSVs") ? location + 1 : location + processor.getByteCount();
 					locationTextfield.setText(Integer.toString(newLocation));
-					nameTextfield.requestFocus();
-					nameTextfield.selectAll();
+					deviceList.requestFocus();
+					//deviceList.selectAll();
+					deviceList.setSelectedIndex(0);
 				}
 			}
 		});
@@ -214,7 +223,7 @@ public class DataStructureWindow extends JDialog {
 				dataStructureTable.revalidate();
 				dataStructureTable.repaint();
 				locationTextfield.setText(packetType.equals("Binary") ? "1" : "0");
-				nameTextfield.requestFocus();
+				deviceList.requestFocus();
 			}
 		});
 		
@@ -243,7 +252,7 @@ public class DataStructureWindow extends JDialog {
 			dataEntryPanel.add(Box.createHorizontalStrut(20));
 		}
 		dataEntryPanel.add(new JLabel("Name"));
-		dataEntryPanel.add(nameTextfield);
+		dataEntryPanel.add(deviceList);
 		dataEntryPanel.add(Box.createHorizontalStrut(20));
 		dataEntryPanel.add(new JLabel("Color"));
 		dataEntryPanel.add(colorButton);
@@ -345,12 +354,12 @@ public class DataStructureWindow extends JDialog {
 		setMinimumSize(new Dimension(getPreferredSize().width, 500));
 		setLocationRelativeTo(parentWindow);
 		
-		nameTextfield.requestFocus();
+		deviceList.requestFocus();
 		
 		if(testMode) {
 			locationTextfield.setEnabled(false);
 			datatypeCombobox.setEnabled(false);
-			nameTextfield.setEnabled(false);
+			deviceList.setEnabled(false);
 			colorButton.setEnabled(false);
 			unitTextfield.setEnabled(false);
 			conversionFactorATextfield.setEnabled(false);

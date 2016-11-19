@@ -34,9 +34,9 @@ public class Model {
 	// attributes of the possible charts
 	static ChartDescriptor[] chartDescriptors = new ChartDescriptor[] {
 		TimeDomainChart.getDescriptor(),
-		TimeDomainChartCached.getDescriptor(),
-		FrequencyDomainChart.getDescriptor(),
-		HistogramChart.getDescriptor(),
+		//TimeDomainChartCached.getDescriptor(),
+		//FrequencyDomainChart.getDescriptor(),
+		//HistogramChart.getDescriptor(),
 		StatisticsChart.getDescriptor()
 	};
 

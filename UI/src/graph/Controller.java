@@ -252,7 +252,7 @@ public class Controller {
 	
 	public static String[] getDeviceNames() {
 	    
-	    return new String[] {"Tap", "Left Squeeze", "Right Squeeze", "Spin"};
+	    return new String[] {"", "Tap", "Left Squeeze", "Right Squeeze", "Spin"};
 	    
 	}
 	

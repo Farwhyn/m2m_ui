@@ -1,9 +1,15 @@
 package graph;
 import java.awt.BorderLayout;
 import java.awt.GraphicsEnvironment;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 import javax.swing.UIManager;
+
+import javafx.stage.WindowEvent;
+
+
 
 public class MainGraph {
 	
@@ -28,12 +34,61 @@ public class MainGraph {
 		window.setLocationRelativeTo(null);
 		
 		window.setMinimumSize(window.getPreferredSize());
-		window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		//window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		//window.setVisible(true);
+		window.addWindowListener(new WindowListener() {
+		    
+            @Override
+            public void windowActivated(java.awt.event.WindowEvent arg0) {
+                // TODO Auto-generated method stub
+                
+            }
 
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent arg0) {
+                // TODO Auto-generated method stub
+                Controller.disconnectFromSerialPort();
+                window.dispose();
+                
+            }
+
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent arg0) {
+                // TODO Auto-generated method stub
+                Controller.disconnectFromSerialPort();
+                window.dispose();
+                
+            }
+
+            @Override
+            public void windowDeactivated(java.awt.event.WindowEvent arg0) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void windowDeiconified(java.awt.event.WindowEvent arg0) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void windowIconified(java.awt.event.WindowEvent arg0) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void windowOpened(java.awt.event.WindowEvent arg0) {
+                // TODO Auto-generated method stub
+                
+            }
+		    
+		});
 	}
 	
 	public void show() {
+	    Controller.removeAllPositionedCharts();
 	    window.setVisible(true);
 	}
 }

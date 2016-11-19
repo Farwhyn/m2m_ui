@@ -22,7 +22,7 @@ public class TimeDomainChart extends PositionedChart {
 			
 			@Override public String toString()        { return "Time Domain Chart"; }
 			@Override public int getMinimumDuration() { return 10; }
-			@Override public int getDefaultDuration() { return 1000; }
+			@Override public int getDefaultDuration() { return 100; }
 			@Override public int getMaximumDuration() { return Integer.MAX_VALUE; }
 			@Override public String[] getInputNames() { return null; }
 			
