@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.BorderLayout;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -25,6 +26,7 @@ import org.jfree.chart.axis.NumberTickUnit;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.entity.StandardEntityCollection;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
@@ -39,12 +41,20 @@ public class Graph {
     public volatile static boolean flag;
     public static int frange = 100;
     public static boolean autoRange = false;
+    
+    
     public static void create() {
      // create and configure the window
+        
         JFrame window = new JFrame();
         window.setTitle("Sensor Graph");
-        window.setSize(600, 400);
+        //window.setSize(600, 400);
         window.setLayout(new BorderLayout());
+        window.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        window.setSize( (int) (GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().width * 0.6), (int) (GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height * 0.6) );
+        window.setLocationRelativeTo(null);
+        
+        window.setMinimumSize(window.getPreferredSize());
         
         window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
@@ -66,13 +76,18 @@ public class Graph {
         else {
         for(int i = 0; i < portNames.length; i++)
             portList.addItem(portNames[i].getSystemPortName());
-        //Thread thread;
-        // create the line graph
-            XYSeries series = new XYSeries("Sensor Readings");
-            XYSeriesCollection dataset = new XYSeriesCollection(series);
-            JFreeChart chart = ChartFactory.createXYLineChart("Free Play Mode Readings", "Time (milliseconds)", "Pressure", dataset);
+       
+              
+            XYSeries series = new XYSeries("Squeeze Readings"); //create a list of xy points dedicated for squeeze
+            XYSeries oseries = new XYSeries("Tap Readings"); //create a list of xy points dedicated for tap
+            XYSeriesCollection dataset = new XYSeriesCollection(series); //create an XY collection used to store previous the data series
+            dataset.addSeries(oseries); //use this if you want to add more series to be plotted in the overall dataset
+       
+            JFreeChart chart = ChartFactory.createLineChart("Free Play Mode Readings", "Time (milliseconds)", "Pressure", (CategoryDataset) dataset.getSeries(0));
             XYPlot xyPlot = (XYPlot) chart.getPlot();
+            NumberAxis yAxis = (NumberAxis) xyPlot.getRangeAxis();
             NumberAxis xAxis = (NumberAxis) xyPlot.getDomainAxis();
+            yAxis.setRange(0, 30);
             xAxis.setRange(irange, frange);
             //xAxis.setTickUnit(new NumberTickUnit(1));
             

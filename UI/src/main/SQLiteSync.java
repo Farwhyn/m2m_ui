@@ -18,7 +18,7 @@ public class SQLiteSync {
         }
         
         Statement state = con.createStatement();
-        ResultSet res = state.executeQuery("SELECT fname, lname, sname FROM user");
+        ResultSet res = state.executeQuery("SELECT id, fname, lname, sname FROM user");
         
             
         return res;

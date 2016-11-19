@@ -33,10 +33,13 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
 import com.fazecast.jSerialComm.SerialPort;
 
+import graph.MainGraph;
+
 
 
 public class Main extends Application{
     SerialPort chosenPort;
+    private static MainGraph maing;
 	
 	Scene loginScreen, landing;
 	public static void main(String[] args){
@@ -44,7 +47,8 @@ public class Main extends Application{
 	}
 	
 	
-	@Override
+	@SuppressWarnings("unchecked")
+    @Override
 	public void start(Stage primaryStage) throws Exception {
 		double columnWidth = 200;
 		
@@ -81,12 +85,12 @@ public class Main extends Application{
 		
 		Button login = new Button("Log In");
 		grid.add(login, 1, 4);
-		grid.setHalignment(login, HPos.RIGHT);
+		GridPane.setHalignment(login, HPos.RIGHT);
 		login.setDefaultButton(true);
 		
 		Button help = new Button("?");
 		grid.add(help, 1, 0);
-		grid.setHalignment(help, HPos.RIGHT);
+		GridPane.setHalignment(help, HPos.RIGHT);
 		
 		Button quit = new Button("Quit");
 		grid.add(quit, 0, 4);
@@ -98,7 +102,7 @@ public class Main extends Application{
 			{
 				//message.setText(blank);
 			    
-			    
+			    //maing = new MainGraph();
 				primaryStage.setScene(landing);
 			}
 			else{
@@ -118,9 +122,9 @@ public class Main extends Application{
 		GridPane pData = new GridPane();
 		SQLiteSync db = new SQLiteSync();
 		
-		display.setTopAnchor(pData, 20.0);
-		display.setRightAnchor(gamemode, 5.0);
-		display.setBottomAnchor(gamemode, 8.0);
+		AnchorPane.setTopAnchor(pData, 20.0);
+		AnchorPane.setRightAnchor(gamemode, 5.0);
+		AnchorPane.setBottomAnchor(gamemode, 8.0);
 		//gamemode.setAlignment(Pos.CENTER);
 		
 		menu.setAlignment(Pos.CENTER_RIGHT);
@@ -141,8 +145,8 @@ public class Main extends Application{
 		//Patient Table
 		pTable.setEditable(true);
 		TableColumn<Patient, String> lastName = new TableColumn<Patient, String>("Last Name");
-		TableColumn firstName = new TableColumn("First Name");
-		TableColumn date = new TableColumn("Date of Last Visit");
+		TableColumn<Patient, String> firstName = new TableColumn<Patient, String>("First Name");
+		TableColumn<Patient, String> date = new TableColumn<Patient, String>("Date of Last Visit");
 		
 		
 		pTable.getColumns().setAll(lastName,firstName,date);
@@ -176,8 +180,6 @@ public class Main extends Application{
 		    return row ;
 		});
 	
-	
-		
 		menu.setPadding(new Insets(10,10,10,10));
 		
 		pData.setPadding(new Insets(10,10,10,10));
@@ -202,10 +204,7 @@ public class Main extends Application{
 	
 		helpAfter.setMaxSize(150, Double.MAX_VALUE);
 		
-		
-		logout.setMaxSize(150, Double.MAX_VALUE);
-		
-		
+		logout.setMaxSize(150, Double.MAX_VALUE);	
 		
 		freePlay.setMaxSize(150, Double.MAX_VALUE);
 		gamemode1.setMaxSize(150, Double.MAX_VALUE);
@@ -220,7 +219,15 @@ public class Main extends Application{
 		pData.add(dateData, 1, 3);
 		
 		freePlay.setOnAction(e -> {
-            Graph.create();
+           // Graph.create();
+		   // maing.show();
+		    if(maing != null) {
+		        maing.show();
+		    }
+		    else{
+		        maing = new MainGraph();
+		        maing.show();
+		    }
         });
 		
 		helpAfter.setOnAction(e -> Help.display("Music to Movement Help", "This is the help window."));
@@ -281,7 +288,7 @@ public class Main extends Application{
             rs = db.displayUsers();
             while(rs.next()) {
                 //System.out.println(rs.getString("fname") + " " + rs.getString("lname"));
-                list.add(new Patient(rs.getString("lname"), rs.getString("fname"), rs.getString("sname")));
+                list.add(new Patient(rs.getInt("id"), rs.getString("lname"), rs.getString("fname"), rs.getString("sname")));
             }
         } catch (ClassNotFoundException e) {
            JOptionPane.showMessageDialog(null, "oops");
@@ -293,8 +300,4 @@ public class Main extends Application{
 		return data;
 
 	}
-	
-
-
-
 }
