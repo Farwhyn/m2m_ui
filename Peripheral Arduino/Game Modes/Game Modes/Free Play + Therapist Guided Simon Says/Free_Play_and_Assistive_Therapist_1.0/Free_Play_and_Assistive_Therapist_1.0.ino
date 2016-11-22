@@ -96,9 +96,9 @@ void loop() {
 
   //Print sensor readings to serial port
   Serial.print(TapReading);
-  Serial.print(' ');
+  Serial.print(',');
   Serial.print(SqueezeReading);
-  Serial.print(' ');
+  Serial.print(',');
   Serial.println(SpinReading);
   delay(50);
 
