@@ -47,23 +47,22 @@ void setup(void)
 
   player.begin();                      //will initialize the hardware and set default mode to be normal.
 //  player.setPlayMode(MODE_NORMAL); //set mode to repeat playing a song
-        player.playOne("PianoC3.mp3");  //do some leisurely job//play a song with its name
-        player.playOne("PianoF3.mp3");  //do some leisurely job//play a song with its name
-        player.playOne("PianoG3.mp3");  //do some leisurely job//play a song with its name
-
+ 
 
 
 }
 void loop(void)
 {
-  player.play();
+  
 
  if (Serial.available() > 0) {
                 // read the incoming byte:
                 incomingByte = Serial.read();
 
                 if (incomingByte> 0)
+                 player.opStop();
                  player.playOne("PianoC3.mp3");
+                 player.play();
                  incomingByte=0;
         }
 }
