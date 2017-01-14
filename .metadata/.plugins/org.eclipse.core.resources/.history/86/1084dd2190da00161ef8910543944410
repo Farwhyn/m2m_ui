@@ -37,11 +37,7 @@ import com.fazecast.jSerialComm.SerialPort;
 
 import graph.MainGraph;
 
-/*
- * Class: Main
- * This class sets up the login and main pages to allow the user to interact with device.
- * The user has the ability to access patient records, as well as begin a new session with the device.
- */
+
 
 public class Main extends Application{
     SerialPort chosenPort;
