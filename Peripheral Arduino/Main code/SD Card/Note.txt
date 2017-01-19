@@ -1,0 +1,1 @@
+If SD card is not working properly, use this arduino library to properly format the SD card depending on the requirements.

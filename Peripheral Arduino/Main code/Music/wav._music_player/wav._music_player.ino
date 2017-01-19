@@ -1,3 +1,11 @@
+// Creator: Jose Martinez Castro
+// 
+// Comments: Works well, yet quality of music is not ideal. 
+//           Also requires wire connection rather than aux cord.
+
+
+
+
 #include <SD.h>                      // need to include the SD library
 //#define SD_ChipSelectPin 53  //example uses hardware SS pin 53 on Mega2560
 #define SD_ChipSelectPin 4  //using digital pin 4 on arduino nano 328, can use other pins

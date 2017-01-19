@@ -37,7 +37,7 @@ int SpinReading = 0;
 int i = 0;
 
 //define three threshold levels for tap
-#define Tap_1  400
+#define Tap_1  150
 
 //define three threshold levels for squeeze
 #define Squeeze_1 140
@@ -86,9 +86,9 @@ void loop() {
   //Tap
 
   //Check whether tap sensor reading is within the three threshold levels
-  if (TapReading > Tap_1 && tap_state == false) {
+  if (TapReading < Tap_1 && tap_state == false) {
     for (int i = 0; i < N_LEDS; i++) {
-      TapStrip.setPixelColor(i, TapStrip.Color(100, 0, 0)); //Red
+      TapStrip.setPixelColor(i, TapStrip.Color(255, 0, 0)); //Red
     }
     TapStrip.show();
     

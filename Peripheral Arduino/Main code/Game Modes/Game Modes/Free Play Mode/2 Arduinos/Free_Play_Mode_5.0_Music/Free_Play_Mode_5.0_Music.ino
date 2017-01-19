@@ -13,7 +13,7 @@ int TapReading;
 int SqueezeReading;
 int SpinReading;
 
-#define Tap_1  350
+#define Tap_1  130
 #define Squeeze_1  100
 #define Spin_1  100
 
@@ -51,14 +51,33 @@ void loop() {
       //Tap
 
       //Check whether tap sensor reading is within the three threshold levels
-      if (TapReading > Tap_1) {
+      if (TapReading < Tap_1) {
 
         player.opStop();
         player.playOne("PianoG3.mp3");
         player.play();
+
       }
 
-//          f
+//            //Squeeze
+//      
+//            //Check whether squeeze sensor reading is within the three threshold levels
+//      
+//            if (SqueezeReading < Squeeze_1) {
+//      
+//              player.opStop();
+//              player.playOne("PianoF3.mp3");
+//              player.play();
+//            }
+//            //Spin
+//      
+//            //Check whether squeeze sensor reading is within the three threshold levels
+//            if (SpinReading > Spin_1) {
+//      
+//              player.opStop();
+//              player.playOne("PianoC3.mp3");
+//              player.play();
+//            }
 
     }
 
