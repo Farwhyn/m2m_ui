@@ -2,6 +2,11 @@ package main;
 
 import javafx.beans.property.SimpleStringProperty;
 
+/*
+ * Class: Patient
+ * This class sets up a new "Patient" with 4 properties.
+ */
+
 public class Patient{
     private	String patient_id;
     private SimpleStringProperty lastName;

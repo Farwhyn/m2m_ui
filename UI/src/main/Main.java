@@ -108,7 +108,7 @@ public class Main extends Application{
 			{
 				//message.setText(blank);
 			    
-			    //maing = new MainGraph();
+			    //main = new MainGraph();
 				primaryStage.setScene(landing);
 			}
 			else{
@@ -126,17 +126,24 @@ public class Main extends Application{
 			Platform.exit();
 			System.exit(0);
 		});
-		//Main Menu
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+//////////////////////////////////////////////// MAIN LANDING PAGE //////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
 		BorderPane layout = new BorderPane();
 		HBox menu = new HBox(10);
+		HBox changeView = new HBox(10);
 		AnchorPane display = new AnchorPane();
-		HBox gamemode = new HBox(10);
+		HBox patientOption = new HBox(10);
 		GridPane pData = new GridPane();
 		SQLiteSync db = new SQLiteSync();
 		
 		AnchorPane.setTopAnchor(pData, 20.0);
-		AnchorPane.setRightAnchor(gamemode, 5.0);
-		AnchorPane.setBottomAnchor(gamemode, 8.0);
+		AnchorPane.setBottomAnchor(changeView, 40.0);
+		AnchorPane.setRightAnchor(changeView, 5.0);
+		AnchorPane.setRightAnchor(patientOption, 5.0);
+		AnchorPane.setBottomAnchor(patientOption, 8.0);
 		//gamemode.setAlignment(Pos.CENTER);
 		
 		menu.setAlignment(Pos.CENTER_RIGHT);
@@ -155,7 +162,10 @@ public class Main extends Application{
 		TableView<Patient> pTable = new TableView<>();
 		ObservableList<Patient> data;
 		
-		//Patient Table
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+//////////////////////////////////////////////// PATIENT TABLE //////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
 		pTable.setEditable(true);
 		TableColumn<Patient, String> lastName = new TableColumn<Patient, String>("Last Name");
 		TableColumn<Patient, String> firstName = new TableColumn<Patient, String>("First Name");
@@ -205,10 +215,13 @@ public class Main extends Application{
 		layout.setCenter(pTable);
 		layout.setRight(display);
 		
+		Button viewSession = new Button("View Sessions...");
+		Button returnPView = new Button("Return to Patient List");
 		
 		Button newPatient = new Button("New...");
 		Button editPatient = new Button("Edit...");
 		Button deletePatient = new Button ("Delete");
+		
 		Button helpAfter = new Button("?");
 		Button logout = new Button("Log Out");
 		
@@ -233,6 +246,10 @@ public class Main extends Application{
 		pData.add(firstData, 1, 1);
 		pData.add(lastData, 1, 2);
 		pData.add(dateData, 1, 3);
+		
+		viewSession.setOnAction(e -> {
+			
+		});
 		
 		freePlay.setOnAction(e -> {
            // Graph.create();
@@ -277,8 +294,9 @@ public class Main extends Application{
 		});
 		
 		menu.getChildren().addAll(freePlay, gamemode1, gamemode2, helpAfter, logout);
-		gamemode.getChildren().addAll(newPatient, editPatient, deletePatient);
-		display.getChildren().addAll(pData, gamemode);
+		patientOption.getChildren().addAll(newPatient, editPatient, deletePatient);
+		changeView.getChildren().addAll(viewSession);
+		display.getChildren().addAll(pData, patientOption, changeView);
 		
 		landing = new Scene(layout, 1000 ,620);	
 		loginScreen = new Scene(grid, 1000, 620);
