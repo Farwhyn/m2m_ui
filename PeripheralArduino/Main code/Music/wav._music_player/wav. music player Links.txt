@@ -1,0 +1,13 @@
+https://www.arduino.cc/en/Tutorial/TonePitchFollower
+
+https://www.arduino.cc/en/Tutorial/toneMelody
+
+https://maxoffsky.com/maxoffsky-blog/how-to-play-wav-audio-files-with-arduino-uno-and-microsd-card/
+
+http://makezine.com/projects/make-35/advanced-arduino-sound-synthesis/
+
+https://www.adafruit.com/product/1788
+
+http://forum.arduino.cc/index.php?topic=143940.0
+
+https://diyhacking.com/arduino-audio-player/
