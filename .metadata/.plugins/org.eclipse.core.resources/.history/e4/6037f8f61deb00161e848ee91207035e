@@ -152,7 +152,7 @@ public class Main extends Application{
 		Label patientData  = new Label ("Patient Data:");
 		Label patientFirst = new Label ("First Name:\t");
 		Label patientLast = new Label ("Last Name:\t");
-		Label patientDate = new Label ("Last Session:\t");
+		Label patientDate = new Label ("Date Visited:\t");
 		//if(fNameDisplay != NULL)
 		Label firstData = new Label ();
 		//firstData.textProperty().bind(rowData.getFirstName().textProperty());
@@ -172,7 +172,7 @@ public class Main extends Application{
 		//TableColumn<Patient, String> date = new TableColumn<Patient, String>("Date of Last Visit");
 		
 		
-		pTable.getColumns().setAll(lastName,firstName);
+		pTable.getColumns().setAll(lastName,firstName,date);
 		pTable.setPrefWidth(10);
 		pTable.setPrefHeight(620);
 		
@@ -182,8 +182,8 @@ public class Main extends Application{
 		firstName.setMinWidth(columnWidth);
 		firstName.setCellValueFactory(new PropertyValueFactory<Patient,String>("firstName"));
 		
-		//date.setMinWidth(columnWidth);
-		//date.setCellValueFactory(new PropertyValueFactory<Patient,String>("visitDate"));
+		date.setMinWidth(columnWidth);
+		date.setCellValueFactory(new PropertyValueFactory<Patient,String>("visitDate"));
 		
 		pTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		
