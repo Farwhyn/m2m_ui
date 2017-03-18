@@ -130,7 +130,7 @@ public class Main extends Application{
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 //////////////////////////////////////////////// MAIN LANDING PAGE //////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
+		int UIflag = 0;
 		BorderPane layout = new BorderPane();
 		HBox menu = new HBox(10);
 		HBox changeView = new HBox(10);
@@ -159,6 +159,7 @@ public class Main extends Application{
 		Label lastData = new Label ();
 		Label dateData = new Label ();
 		
+		TableView<Patient> sTable = new TableView<>();
 		TableView<Patient> pTable = new TableView<>();
 		ObservableList<Patient> data;
 		
@@ -211,9 +212,7 @@ public class Main extends Application{
 		pData.getColumnConstraints().add(new ColumnConstraints(100));
 		
 		
-		layout.setTop(menu);
-		layout.setCenter(pTable);
-		layout.setRight(display);
+		
 		
 		Button viewSession = new Button("View Sessions...");
 		Button returnPView = new Button("Return to Patient List");
@@ -297,6 +296,11 @@ public class Main extends Application{
 		patientOption.getChildren().addAll(newPatient, editPatient, deletePatient);
 		changeView.getChildren().addAll(viewSession);
 		display.getChildren().addAll(pData, patientOption, changeView);
+		
+		
+		layout.setTop(menu);
+		layout.setCenter(pTable);
+		layout.setRight(display);
 		
 		landing = new Scene(layout, 1000 ,620);	
 		loginScreen = new Scene(grid, 1000, 620);

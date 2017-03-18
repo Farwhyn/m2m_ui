@@ -152,13 +152,14 @@ public class Main extends Application{
 		Label patientData  = new Label ("Patient Data:");
 		Label patientFirst = new Label ("First Name:\t");
 		Label patientLast = new Label ("Last Name:\t");
-		Label patientDate = new Label ("Last Appointment:\t");
+		Label patientDate = new Label ("Last Session:\t");
 		//if(fNameDisplay != NULL)
 		Label firstData = new Label ();
 		//firstData.textProperty().bind(rowData.getFirstName().textProperty());
 		Label lastData = new Label ();
 		Label dateData = new Label ();
 		
+		TableView<Patient> sTable = new TableView<>();
 		TableView<Patient> pTable = new TableView<>();
 		ObservableList<Patient> data;
 		
