@@ -2,18 +2,23 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="pTable" key="selection"/>
+		<item value="loginScreen" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="loginScreen"/>
+			<item value="viewSession"/>
 			<item value="ptable"/>
+			<item value="pTable"/>
+			<item value="pData"/>
+			<item value="gridPane"/>
+			<item value="gridpane"/>
 			<item value="gamemode"/>
-			<item value="display"/>
-			<item value="dateData"/>
 		</list>
 		<list key="replacehistory">
+			<item value="toggleView"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

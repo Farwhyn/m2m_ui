@@ -47,7 +47,7 @@ public class Main extends Application{
     SerialPort chosenPort;
     private static MainGraph maing;
 	
-	Scene loginScreen, landing;
+	Scene loginScreen, landing, sessions;
 	public static void main(String[] args){
 		launch(args);
 	}
@@ -130,7 +130,6 @@ public class Main extends Application{
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 //////////////////////////////////////////////// MAIN LANDING PAGE //////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		int UIflag = 0;
 		BorderPane layout = new BorderPane();
 		HBox menu = new HBox(10);
 		HBox changeView = new HBox(10);
@@ -162,6 +161,12 @@ public class Main extends Application{
 		TableView<Patient> sTable = new TableView<>();
 		TableView<Patient> pTable = new TableView<>();
 		ObservableList<Patient> data;
+		
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+////////////////////////////////////////////////SESSIONS TABLE //////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		sTable.setEditable(true);
+		//TableColumn<>
 		
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 //////////////////////////////////////////////// PATIENT TABLE //////////////////////////////////////////////////////////
@@ -213,9 +218,8 @@ public class Main extends Application{
 		
 		
 		
-		
-		Button viewSession = new Button("View Sessions...");
-		Button returnPView = new Button("Return to Patient List");
+		Button toggleView = new Button("View Sessions...");
+		Button returnPView = new Button("View Patients...");
 		
 		Button newPatient = new Button("New...");
 		Button editPatient = new Button("Edit...");
@@ -246,8 +250,10 @@ public class Main extends Application{
 		pData.add(lastData, 1, 2);
 		pData.add(dateData, 1, 3);
 		
-		viewSession.setOnAction(e -> {
-			
+		toggleView.setOnAction(e -> {
+			newPatient.setDisable(true);
+			deletePatient.setDisable(true);
+			editPatient.setDisable(true);
 		});
 		
 		freePlay.setOnAction(e -> {
@@ -283,6 +289,7 @@ public class Main extends Application{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			
 			firstData.setText(blank);
 			lastData.setText(blank);
 			dateData.setText(blank);
@@ -291,10 +298,9 @@ public class Main extends Application{
 			
 			
 		});
-		
 		menu.getChildren().addAll(freePlay, gamemode1, gamemode2, helpAfter, logout);
 		patientOption.getChildren().addAll(newPatient, editPatient, deletePatient);
-		changeView.getChildren().addAll(viewSession);
+		changeView.getChildren().addAll(toggleView);
 		display.getChildren().addAll(pData, patientOption, changeView);
 		
 		

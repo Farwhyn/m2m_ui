@@ -130,7 +130,6 @@ public class Main extends Application{
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 //////////////////////////////////////////////// MAIN LANDING PAGE //////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
 		BorderPane layout = new BorderPane();
 		HBox menu = new HBox(10);
 		HBox changeView = new HBox(10);
@@ -212,11 +211,8 @@ public class Main extends Application{
 		pData.getColumnConstraints().add(new ColumnConstraints(100));
 		
 		
-		layout.setTop(menu);
-		layout.setCenter(pTable);
-		layout.setRight(display);
 		
-		Button viewSession = new Button("View Sessions...");
+		Button toggleView = new Button("View Sessions...");
 		Button returnPView = new Button("Return to Patient List");
 		
 		Button newPatient = new Button("New...");
@@ -248,8 +244,10 @@ public class Main extends Application{
 		pData.add(lastData, 1, 2);
 		pData.add(dateData, 1, 3);
 		
-		viewSession.setOnAction(e -> {
-			
+		toggleView.setOnAction(e -> {
+			newPatient.setDisable(true);
+			deletePatient.setDisable(true);
+			editPatient.setDisable(true);
 		});
 		
 		freePlay.setOnAction(e -> {
@@ -293,11 +291,15 @@ public class Main extends Application{
 			
 			
 		});
-		
 		menu.getChildren().addAll(freePlay, gamemode1, gamemode2, helpAfter, logout);
 		patientOption.getChildren().addAll(newPatient, editPatient, deletePatient);
-		changeView.getChildren().addAll(viewSession);
+		changeView.getChildren().addAll(toggleView);
 		display.getChildren().addAll(pData, patientOption, changeView);
+		
+		
+		layout.setTop(menu);
+		layout.setCenter(pTable);
+		layout.setRight(display);
 		
 		landing = new Scene(layout, 1000 ,620);	
 		loginScreen = new Scene(grid, 1000, 620);
