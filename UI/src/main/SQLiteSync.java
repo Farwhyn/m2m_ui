@@ -17,11 +17,20 @@ public class SQLiteSync {
             getConnection();
         }
         
-        Statement state = con.createStatement();
-        ResultSet res = state.executeQuery("SELECT id, fname, lname, sname FROM user");
+        Statement state3 = con.createStatement();
+        ResultSet res = state3.executeQuery("SELECT id, fname, lname, sname FROM user");
         
             
         return res;
+    }
+    public ResultSet displaySessions() throws ClassNotFoundException, SQLException{
+    	 if (con == null) {
+             getConnection();
+         }
+    	 
+    	Statement state4 = con.createStatement();
+    	ResultSet rs2 = state4.executeQuery("SELECT id, pid, fname, lname, vdate, FROM sess");
+    	return rs2;
     }
 
     private void getConnection() throws ClassNotFoundException, SQLException {
@@ -39,6 +48,9 @@ public class SQLiteSync {
         
         Statement state = con.createStatement();
         ResultSet res = state.executeQuery("SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'user'");
+        Statement state1 = con.createStatement();
+    	ResultSet rs2 = state1.executeQuery("SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'sess'");
+
         if(!res.next()) {
             System.out.println("Initializing the patient table");
             

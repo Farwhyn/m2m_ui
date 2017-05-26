@@ -160,12 +160,33 @@ public class Main extends Application{
 		
 		TableView<Patient> sTable = new TableView<>();
 		TableView<Patient> pTable = new TableView<>();
+		ObservableList<Sessions> sData;
 		ObservableList<Patient> data;
 		
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 ////////////////////////////////////////////////SESSIONS TABLE //////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		sTable.setEditable(true);
+		TableColumn<Sessions, String> vDate = new TableColumn<Sessions, String>("Session Date");
+		TableColumn<Sessions, String> gType = new TableColumn<Sessions, String>("Game Type");
+		
+		//sTable.getColumns().setAll(vDate,gType);
+		sTable.setPrefWidth(10);
+		sTable.setPrefHeight(620);
+		
+		vDate.setMinWidth(columnWidth);
+		vDate.setCellValueFactory(new PropertyValueFactory<Sessions,String>("visitDate"));
+		
+		gType.setMinWidth(columnWidth);
+		gType.setCellValueFactory(new PropertyValueFactory<Sessions,String>("gameType"));
+		
+		//date.setMinWidth(columnWidth);
+		//date.setCellValueFactory(new PropertyValueFactory<Patient,String>("visitDate"));
+		
+		sTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+		
+		//sData = getData(db);
+		//sTable.setItems(sData);
 		//TableColumn<>
 		
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
@@ -199,7 +220,7 @@ public class Main extends Application{
 		pTable.setRowFactory( tv -> {
 		    TableRow<Patient> row = new TableRow<>();
 		    row.setOnMouseClicked(event -> {
-		        if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+		        if (event.getClickCount() == 1 && (! row.isEmpty()) ) {
 		            Patient rowData = row.getItem();
 		            patientID.setText( rowData.getID());
 		            firstData.setText(rowData.getFirstName());
@@ -256,6 +277,16 @@ public class Main extends Application{
 			editPatient.setDisable(true);
 		});
 		
+		
+		freePlay.setOnAction(e->{
+			//QUESTIONNAIRE TEST//
+			if(!firstData.getText().equals(blank)){
+				Questionnaire.display(firstData.getText(), lastData.getText(),"Pre-Session Questionnaire", "Fill this out before completing beginning your session.");
+			}
+		});
+		
+		//////HI OPENS GRAPH DONT DELETE ANDREW//////
+		/*
 		freePlay.setOnAction(e -> {
            // Graph.create();
 		   // maing.show();
@@ -267,7 +298,7 @@ public class Main extends Application{
 		        maing.show();
 		    }
         });
-		
+		*/
 		helpAfter.setOnAction(e -> Help.display("Music to Movement Help", "This is the help window."));
 		
 		logout.setOnAction(e -> {
@@ -343,4 +374,8 @@ public class Main extends Application{
 		return data;
 
 	}
+	
+	//ObservableList<Sessions> getData(){
+	
+	//}
 }
