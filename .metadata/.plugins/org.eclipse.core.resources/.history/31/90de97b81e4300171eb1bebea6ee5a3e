@@ -277,16 +277,16 @@ public class Main extends Application{
 			editPatient.setDisable(true);
 		});
 		
-		
+		/*
 		freePlay.setOnAction(e->{
 			//QUESTIONNAIRE TEST//
 			if(!firstData.getText().equals(blank)){
 				Questionnaire.display(firstData.getText(), lastData.getText(),"Pre-Session Questionnaire", "Fill this out before completing beginning your session.");
 			}
-		});
+		});*/
 		
 		//////HI OPENS GRAPH DONT DELETE ANDREW//////
-		/*
+		
 		freePlay.setOnAction(e -> {
            // Graph.create();
 		   // maing.show();
@@ -297,7 +297,7 @@ public class Main extends Application{
 		        maing = new MainGraph();
 		        maing.show();
 		    }
-        });*/
+        });
 		
 		helpAfter.setOnAction(e -> Help.display("Music to Movement Help", "This is the help window."));
 		

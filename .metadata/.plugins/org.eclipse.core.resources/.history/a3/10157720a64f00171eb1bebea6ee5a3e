@@ -28,7 +28,7 @@ public class Questionnaire {
 		qWindow.initModality(Modality.APPLICATION_MODAL);
 		qWindow.setTitle(title);
 		qWindow.setMinWidth(450);
-		qWindow.setMinHeight(750);
+		qWindow.setMinHeight(720);
 		
 		RadioButton m1 = new RadioButton("1");
 		m1.setToggleGroup(mood);
@@ -87,15 +87,13 @@ public class Questionnaire {
 		
 		//Label Questi = new Label();
 		//helpText.setText(message);
-		Button cancel = new Button("Cancel");
-		cancel.setOnAction(e->{
-			qWindow.close();
-		});
+		
 		Button next = new Button("Continue");
+		GridPane.setConstraints(next, 0, 14);
 		next.setDefaultButton(true);
 		next.setOnAction(e -> qWindow.close());
-		HBox buttons = new HBox(6, next, cancel);
-		GridPane.setConstraints(buttons, 0, 16);
+		
+		
 		GridPane qlayout = new GridPane();
 		qlayout.setPadding(new Insets(5,5,5,5));
 	    qlayout.setVgap(6);
@@ -129,13 +127,13 @@ public class Questionnaire {
 		GridPane.setConstraints(motivationOptions, 0, 5);
 
 		HBox overOptions = new HBox(6,m11,m12,m13,m14,m15);
-		GridPane.setConstraints(overOptions, 0, 7);
+		GridPane.setConstraints(motivationOptions, 0, 7);
 		
 		HBox beneficialOptions = new HBox(6,m16,m17,m18,m19,m20);
-		GridPane.setConstraints(beneficialOptions, 0, 9);
+		GridPane.setConstraints(motivationOptions, 0, 9);
 		
 		HBox improvementOptions = new HBox(6,m21,m22,m23,m24,m25);
-		GridPane.setConstraints(improvementOptions, 0, 11);
+		GridPane.setConstraints(motivationOptions, 0, 11);
 
 		Label comments = new Label("You are encouraged to elaborate on any of your previous answers:");
 		GridPane.setConstraints(comments,0,12);
@@ -149,7 +147,7 @@ public class Questionnaire {
 		TextArea goalBox = new TextArea();
 		GridPane.setConstraints(goalBox, 0, 15);
 		
-		qlayout.getChildren().addAll(goals, goalBox, patient ,question,moodOptions, comments, commentBox, buttons, moodQuestion, motivation, overwhelmed, beneficial, improvement, motivationOptions, overOptions, beneficialOptions, improvementOptions);
+		qlayout.getChildren().addAll(goals, goalBox, patient ,question,moodOptions, comments, commentBox, next, moodQuestion, motivation, overwhelmed, beneficial, improvement, motivationOptions, overOptions, beneficialOptions, improvementOptions);
 
 		
 		

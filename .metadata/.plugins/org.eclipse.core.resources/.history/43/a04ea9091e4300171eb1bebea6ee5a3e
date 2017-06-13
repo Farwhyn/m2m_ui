@@ -297,8 +297,8 @@ public class Main extends Application{
 		        maing = new MainGraph();
 		        maing.show();
 		    }
-        });*/
-		
+        });
+		*/
 		helpAfter.setOnAction(e -> Help.display("Music to Movement Help", "This is the help window."));
 		
 		logout.setOnAction(e -> {

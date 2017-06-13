@@ -149,7 +149,7 @@ public class Questionnaire {
 		TextArea goalBox = new TextArea();
 		GridPane.setConstraints(goalBox, 0, 15);
 		
-		qlayout.getChildren().addAll(goals, goalBox, patient ,question,moodOptions, comments, commentBox, buttons, moodQuestion, motivation, overwhelmed, beneficial, improvement, motivationOptions, overOptions, beneficialOptions, improvementOptions);
+		qlayout.getChildren().addAll(goals, goalBox, patient ,question,moodOptions, comments, commentBox, next, moodQuestion, motivation, overwhelmed, beneficial, improvement, motivationOptions, overOptions, beneficialOptions, improvementOptions);
 
 		
 		

@@ -286,8 +286,8 @@ public class Main extends Application{
 		});
 		
 		//////HI OPENS GRAPH DONT DELETE ANDREW//////
-		/*
-		freePlay.setOnAction(e -> {
+		
+		/*freePlay.setOnAction(e -> {
            // Graph.create();
 		   // maing.show();
 		    if(maing != null) {

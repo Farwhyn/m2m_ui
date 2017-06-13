@@ -28,7 +28,7 @@ public class Questionnaire {
 		qWindow.initModality(Modality.APPLICATION_MODAL);
 		qWindow.setTitle(title);
 		qWindow.setMinWidth(450);
-		qWindow.setMinHeight(750);
+		qWindow.setMinHeight(720);
 		
 		RadioButton m1 = new RadioButton("1");
 		m1.setToggleGroup(mood);
@@ -42,60 +42,58 @@ public class Questionnaire {
 		m5.setToggleGroup(mood);
 		
 		RadioButton m6 = new RadioButton("1");
-		m6.setToggleGroup(mot);
+		m1.setToggleGroup(mot);
 		RadioButton m7 = new RadioButton("2");
-		m7.setToggleGroup(mot);
+		m2.setToggleGroup(mot);
 		RadioButton m8 = new RadioButton("3");
-		m8.setToggleGroup(mot);
+		m3.setToggleGroup(mot);
 		RadioButton m9 = new RadioButton("4");
-		m9.setToggleGroup(mot);
+		m4.setToggleGroup(mot);
 		RadioButton m10 = new RadioButton("5");
-		m10.setToggleGroup(mot);
+		m5.setToggleGroup(mot);
 		
 		RadioButton m11 = new RadioButton("1");
-		m11.setToggleGroup(ov);
+		m1.setToggleGroup(ov);
 		RadioButton m12 = new RadioButton("2");
-		m12.setToggleGroup(ov);
+		m2.setToggleGroup(ov);
 		RadioButton m13 = new RadioButton("3");
-		m13.setToggleGroup(ov);
+		m3.setToggleGroup(ov);
 		RadioButton m14 = new RadioButton("4");
-		m14.setToggleGroup(ov);
+		m4.setToggleGroup(ov);
 		RadioButton m15 = new RadioButton("5");
-		m15.setToggleGroup(ov);
+		m5.setToggleGroup(ov);
 		
 		RadioButton m16 = new RadioButton("1");
-		m16.setToggleGroup(ben);
+		m1.setToggleGroup(ben);
 		RadioButton m17 = new RadioButton("2");
-		m17.setToggleGroup(ben);
+		m2.setToggleGroup(ben);
 		RadioButton m18 = new RadioButton("3");
-		m18.setToggleGroup(ben);
+		m3.setToggleGroup(ben);
 		RadioButton m19 = new RadioButton("4");
-		m19.setToggleGroup(ben);
+		m4.setToggleGroup(ben);
 		RadioButton m20 = new RadioButton("5");
-		m20.setToggleGroup(ben);
+		m5.setToggleGroup(ben);
 		
 		RadioButton m21 = new RadioButton("1");
-		m21.setToggleGroup(imp);
+		m1.setToggleGroup(imp);
 		RadioButton m22 = new RadioButton("2");
-		m22.setToggleGroup(imp);
+		m2.setToggleGroup(imp);
 		RadioButton m23 = new RadioButton("3");
-		m23.setToggleGroup(imp);
+		m3.setToggleGroup(imp);
 		RadioButton m24 = new RadioButton("4");
-		m24.setToggleGroup(imp);
+		m4.setToggleGroup(imp);
 		RadioButton m25 = new RadioButton("5");
-		m25.setToggleGroup(imp);
+		m5.setToggleGroup(imp);
 		
 		//Label Questi = new Label();
 		//helpText.setText(message);
-		Button cancel = new Button("Cancel");
-		cancel.setOnAction(e->{
-			qWindow.close();
-		});
+		
 		Button next = new Button("Continue");
+		GridPane.setConstraints(next, 0, 13);
 		next.setDefaultButton(true);
 		next.setOnAction(e -> qWindow.close());
-		HBox buttons = new HBox(6, next, cancel);
-		GridPane.setConstraints(buttons, 0, 16);
+		
+		
 		GridPane qlayout = new GridPane();
 		qlayout.setPadding(new Insets(5,5,5,5));
 	    qlayout.setVgap(6);
@@ -129,27 +127,20 @@ public class Questionnaire {
 		GridPane.setConstraints(motivationOptions, 0, 5);
 
 		HBox overOptions = new HBox(6,m11,m12,m13,m14,m15);
-		GridPane.setConstraints(overOptions, 0, 7);
+		GridPane.setConstraints(motivationOptions, 0, 7);
 		
 		HBox beneficialOptions = new HBox(6,m16,m17,m18,m19,m20);
-		GridPane.setConstraints(beneficialOptions, 0, 9);
+		GridPane.setConstraints(motivationOptions, 0, 8);
 		
 		HBox improvementOptions = new HBox(6,m21,m22,m23,m24,m25);
-		GridPane.setConstraints(improvementOptions, 0, 11);
+		GridPane.setConstraints(motivationOptions, 0, 9);
 
-		Label comments = new Label("You are encouraged to elaborate on any of your previous answers:");
-		GridPane.setConstraints(comments,0,12);
+		Label comments = new Label("Additional Comments:");
+		GridPane.setConstraints(comments,0,11);
 		
 		TextArea commentBox = new TextArea();
-		GridPane.setConstraints(commentBox,0,13);
-		
-		Label goals=  new Label("Please describe some goals for this session:");
-		GridPane.setConstraints(goals, 0, 14);
-		
-		TextArea goalBox = new TextArea();
-		GridPane.setConstraints(goalBox, 0, 15);
-		
-		qlayout.getChildren().addAll(goals, goalBox, patient ,question,moodOptions, comments, commentBox, buttons, moodQuestion, motivation, overwhelmed, beneficial, improvement, motivationOptions, overOptions, beneficialOptions, improvementOptions);
+		GridPane.setConstraints(commentBox,0,12);
+		qlayout.getChildren().addAll(patient ,question,moodOptions, comments, commentBox, next, moodQuestion, motivation, overwhelmed, beneficial, improvement, motivationOptions, overOptions, beneficialOptions, improvementOptions);
 
 		
 		
